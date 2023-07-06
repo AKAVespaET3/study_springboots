@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CarCompany">
+
+         <!-- 검색 -->
+
+	<select id="selectSearch" parameterType="Map" resultType="Map">
+                select *
+                from db_cars.factorys
+                where 1 = 1
+                <choose>
+                        <when test="search == 'COMPANY'">
+                        <![CDATA[
+                        AND COMPANY = #{words}    
+                        ]]>
+                         </when>
+                        <otherwise>
+                        AND COMPANY_ID like CONCAT(#{words}, '%')
+                        </otherwise>
+                </choose>
+                ;
+	</select>
+
+         <!-- 전체 -->
+
+	<select id="selectAll" parameterType="Map" resultType="Map">
+                select *
+                from db_cars.factorys
+                where 1 = 1;
+	</select>
+
+         <!-- 상세 -->
+
+	<select id="selectByUID" parameterType="Map" resultType="Map">
+                select *
+                from db_cars.factorys
+                where COMPANY = #{COMPANY}
+	</select>
+
+         <!-- 입력 -->
+        <insert id="insert" parameterType="Map" >
+                insert into factorys
+                (COMPANY_ID,COMPANY)
+                values
+                (#{COMPANY_ID},#{COMPANY})
+        </insert>
+
+         <!-- 수정 -->
+        <update id="update" parameterType="Map" >
+                update factorys
+                set COMPANY = #{COMPANY}
+                where COMPANY_ID = #{COMPANY_ID}
+        </update>
+
+         <!-- 삭제 -->
+        <delete id="delete" parameterType="Map" >
+                delete from factorys
+                where COMPANY = #{COMPANY}
+        </delete>
+</mapper>
