@@ -10,7 +10,7 @@
                 <choose>
                         <when test="search == 'YEAR'">
                         <![CDATA[
-                        AND YEAR > #{words}    
+                        AND YEAR = #{words}    
                         ]]>
                          </when>
                         <otherwise>

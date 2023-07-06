@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.study_springboots.service.CarInforsService;
 
@@ -19,6 +21,8 @@ import com.example.study_springboots.service.CarInforsService;
 @RequestMapping("/carInfor")
 public class CarInforsController {
     @Autowired
+
+
     CarInforsService carInforsService;
 
     @GetMapping("/selectInUID")
@@ -31,12 +35,16 @@ public class CarInforsController {
         }
         return ResponseEntity.ok().body(result);
     }
-
+    // /selectSearch?search=YEAR&words=2020
     // /selectSearch/YEAR/2020
-    @GetMapping("/selectSearch/{search}/{words}")
-    public ResponseEntity selectSearch(@PathVariable String search, @PathVariable String words){
-        Object result = carInforsService.selectSearch(search, words);
-        return ResponseEntity.ok().body(result);
+    @GetMapping("/selectSearch")
+    public  ModelAndView selectSearch(@RequestParam Map params, 
+                            ModelAndView modelAndView){
+        Object result = carInforsService.selectSearch(params);
+        modelAndView.addObject("params", params);
+        modelAndView.addObject("result", result);
+        modelAndView.setViewName("/WEB-INF/views/carinfor/list.jsp");
+        return modelAndView;
         }
 
     @GetMapping("/selectAll/{CAR_INFOR_ID}")
