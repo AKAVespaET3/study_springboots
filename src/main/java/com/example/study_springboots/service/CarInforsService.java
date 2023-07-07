@@ -75,6 +75,24 @@ public class CarInforsService {
         Object result = sharedDao.update(sqlMapId, dataMap);
         return null;
     }
+    // MVC view
+    public Object delete(Map dataMap) { //overloading 기술 메소드 같은데 파라미터값다름
+        String sqlMapId = "CarInfors.delete";
+        Object result = sharedDao.delete(sqlMapId, dataMap);
+        return result;
+    }
+    // MVC view
+    public Object deleteAndSelectSearch(Map dataMap) { //overloading 기술 메소드 같은데 파라미터값다름
+        HashMap result = new HashMap<>();
+        // String sqlMapId = "CarInfors.delete";
+        // result.put("deleteCount", sharedDao.delete(sqlMapId, dataMap));
+        result.put("deleteCount", this.delete(dataMap));
+
+        // sqlMapId = "CarInfors.selectSearch";
+        // result.put("resultList", sharedDao.getOne(sqlMapId, dataMap));
+        result.put("resultList", this.selectSearch(dataMap));
+        return result;
+    }
 
     public Object delete(String CAR_INFOR_ID) {
         String sqlMapId = "CarInfors.delete";

@@ -12,7 +12,7 @@ public class SharedDao {
     // 여러개 레코드
     public Object getList(String sqlMapId, Object dataMap){
         Object result = sqlSessionTemplate.selectList(sqlMapId, dataMap);
-        return result;
+        return result ;
     }
 
     // 레코드 하나

@@ -43,10 +43,31 @@ public class CarInforsController {
         Object result = carInforsService.selectSearch(params);
         modelAndView.addObject("params", params);
         modelAndView.addObject("result", result);
+
         modelAndView.setViewName("/WEB-INF/views/carinfor/list.jsp");
         return modelAndView;
         }
 
+    // delete with MVC
+     @PostMapping("/deleteAndSelectSearch") // uri , method, 경로, 서비스클래스이름
+    public ModelAndView deleteAndSelectSearch(@RequestParam Map params, 
+                            ModelAndView modelAndView){
+        Object result = carInforsService.deleteAndSelectSearch(params);
+        modelAndView.addObject("params", params);
+        modelAndView.addObject("result", result);
+        modelAndView.setViewName("/WEB-INF/views/carinfor/list_map.jsp");
+        return modelAndView;
+    }
+    // delete with MVC
+     @PostMapping("/delete")
+    public ModelAndView delete(@RequestParam Map params, 
+                            ModelAndView modelAndView){
+        Object result = carInforsService.delete(params);
+        modelAndView.addObject("params", params);
+        
+        modelAndView.setViewName("/WEB-INF/views/carinfor/list.jsp");
+        return modelAndView;
+    }
     @GetMapping("/selectAll/{CAR_INFOR_ID}")
     public ResponseEntity selectAll(@PathVariable String CAR_INFOR_ID){
         Object result = carInforsService.selectAll(CAR_INFOR_ID);
